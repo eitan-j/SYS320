@@ -89,5 +89,11 @@ echo "
 PublicKey = ${clientpublickey}
 PresharedKey = ${preshared}
 AllowedIPs = 10.254.132.100/32
-# ${clientname} end
-" | tee -a wg0.conf
+# ${clientname} end" >>  wg0.conf
+
+# What to do once it's done
+
+echo "
+sudo cp wg0.conf /etc/wireguard
+sudo wg addconf wg0 <(wg-quick strip wg0)
+"
