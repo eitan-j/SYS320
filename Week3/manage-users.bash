@@ -60,3 +60,11 @@ then
 fi
 
 # Add a user
+if [[ ${u_add} ]]
+then
+
+    echo "Creating user..."
+    bash peer.bash ${t_user}
+
+fi
+
