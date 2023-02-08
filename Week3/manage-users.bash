@@ -2,7 +2,7 @@
 
 # Storyline: Script to add and delete VPN peers
 
-while getopts 'hdau:' OPTION ; do
+while getopts 'hdacu:' OPTION ; do
 
     case "$OPTION" in
 
@@ -10,12 +10,14 @@ while getopts 'hdau:' OPTION ; do
         ;;
         a) u_add=${OPTION}
         ;;
+        c) u_check=${OPTION}
+        ;;
         u) t_user=${OPTARG}
         ;;
         h)
 
             echo ""
-            echo "Usage: $(basename $0) [-a]|[-d] -u username"
+            echo "Usage: $(basename "$0") [-a]|[-d][-c] -u username"
             echo ""
             exit 1
 
@@ -31,20 +33,22 @@ while getopts 'hdau:' OPTION ; do
 
 done
 
-# Check to see if the -a and -d are empty of if they are both specified throw and error
-if [[ (${u_del} == "" && ${u_add} == "") || (${u_del} != "" && ${u_add} != "") ]]
+# Check to see if there is exactly one of a, d, or c
+if [[ $((${#u_del} + ${#u_add} + ${#u_check})) != 1 ]]
 then
 
-    echo "Please specify -a or -d and the -u and username"
+    echo "Please specify -a, -d, or -c and the -u and username"
     exit 1
+
 fi
 
 # Check to ensure -u is specified
-if [[ (${u_del} != "" || ${u_add} != "") && ${t_user} == ""  ]]
+if [[ ${t_user} == "" ]]
 then
 
     echo "Please specify a user (-u)!"
     exit 1
+
 fi
 
 
@@ -64,7 +68,21 @@ if [[ ${u_add} ]]
 then
 
     echo "Creating user..."
-    bash peer.bash ${t_user}
+    bash peer.bash "${t_user}"
 
 fi
 
+# Check for user
+
+if [[ ${u_check} ]]
+
+then
+
+    echo "Checking..."
+    if [[ -n $(awk "/# ${t_user} begin/,/# ${t_user} end/" wg0.conf) ]]
+    then
+        echo "${t_user} exists in wg0.conf"
+    else
+        echo "${t_user} does not exist in wg0.conf"
+    fi
+fi

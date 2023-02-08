@@ -44,7 +44,10 @@ admin_menu () {
     echo "[L]ist Running Processes"
     echo "[N]etwork Sockets"
     echo "[V]PN Menu"
-    echo "[4] Exit"
+    echo "[I] Check for users with UID of 0"
+    echo "[U] List logged in users"
+    echo "[R] List recently log ons"
+    echo "[E] Exit"
     read -p "Please enter a choice above: " choice
 
     case "$choice" in
@@ -55,7 +58,13 @@ admin_menu () {
         ;;
         V|v) vpn_menu
         ;;
-        4) exit 0
+        I|i) id -nu 0 | less
+        ;;
+        U|u) w | less
+        ;;
+        R|r) last -n 10 | less
+        ;;
+        E|e) exit 0
         ;;
         *) invalid_opt
         ;;
@@ -103,6 +112,16 @@ vpn_menu () {
 
     esac
 vpn_menu
+}
+
+security_menu () {
+
+    echo ""
+    echo "Not yet implimented"
+    echo ""
+    sleep 2
+menu
+
 }
 
 
