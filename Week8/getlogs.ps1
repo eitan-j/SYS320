@@ -16,3 +16,4 @@ Get-EventLog -LogName $readLog -Newest 40 | where {$_.Message -ilike "*new proce
 
 # Task: Create a prompt that allows the user to specify a keyword or phrase to search on.
 # Find a string from your event logs to search on
+
