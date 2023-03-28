@@ -21,4 +21,3 @@ Get-EventLog -LogName $readLog -Newest 40 | where {$_.Message -ilike "*$findMess
 # Find a string from your event logs to search on
 
 # Example string: "New Logon"
-

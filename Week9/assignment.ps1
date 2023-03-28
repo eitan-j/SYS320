@@ -13,4 +13,3 @@ Get-Service | Where-Object { $_.Status -eq "Running" } | Select-Object Name, Dis
 Start-Process -FilePath calc.exe # I don't think it's possible to start a process just from it's process name unless it's already runnung
 Start-Sleep -Seconds 2
 Stop-Process -Name CalculatorApp
-

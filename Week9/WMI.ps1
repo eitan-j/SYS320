@@ -8,4 +8,3 @@
 # Task: Grab the network adapter information using the WMI class
 # Get the IP address, default gateway, and the DNS servers
 # BONUS: get the DHCP server
-

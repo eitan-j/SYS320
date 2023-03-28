@@ -16,4 +16,3 @@ $toEmail = "deployer@csi-web"
 
 # Sending the email
 Send-MailMessage -From $email -To $toEmail -Subject "A Greeting" -Body $msg -SmtpServer 192.168.6.71
-
