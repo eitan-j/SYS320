@@ -49,13 +49,13 @@ function log_check() {
 
     # Format the user input
     # Example: @{Log=Security}
-    $theLog = "^@[Log=" + $logToSearch + "}$" # TODO: what does the dollar sign do here?
+    $theLog = "^@{Log=" + $logToSearch + "}$" # TODO: what does the dollar sign do here?
 
     # Search the array for the exact hashtable string
-    if ($arrLog -Match $theLog){
+    if ($arrLog -Match $theLog){ # TODO: why is $arrLog accessable from here?
 
         Write-Host -BackgroundColor Green -ForegroundColor White "Please wait, it may take a few moments to retrieve the log entries."
-        sleep 2
+        Sleep 2
 
         # Call the function to view the log
         view_log -logToSearch $logToSearch
