@@ -1,28 +1,39 @@
 ﻿
-$statuses = @('All','Stopped','Running')
+function main() {
 
-Write-Host "Enter which services to view."
-$userInput = Read-Host "All, Stopped, Running, or q to quit"
+    $statuses = @('All','Stopped','Running')
 
-if ($userInput -Match "^[qQ]$") {
+    Write-Host "Enter which services to view."
+    $userInput = Read-Host "All, Stopped, Running, or q to quit"
 
-    # Stop executing the program and close the script
-    break
+    if ($userInput -match "^[qQ]$") {
 
-    }
+        # Stop executing the program and close the script
+        break
 
-if ($statuses -match $userInput) {
-    if ("All" -ilike $userInput) {
+        }
+
+    if ($statuses -icontains $userInput) {
+        if ("All" -ieq $userInput) {
         
-        Get-Service
+            Get-Service
+            Break
+
+            }
+    
+        Get-Service | Where-Object { $_.Status -eq $userInput }
+
         Break
 
         }
-    
-    Get-Service | Where-Object { $_.Status -eq $userInput }
+
+    Write-Host -ForegroundColor White -BackgroundColor Red "Invalid input"
+    main
+
 
     }
 
-# TODO: check if input is valid & restart if invalid
-# TODO: run without Where-Object if input is All
 
+# TODO: check if input is valid & restart if invalid
+
+main
