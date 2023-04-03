@@ -45,20 +45,23 @@ function select_log() {
 function log_check() {
 
     # String the user types in within the select_log function
-    Param([string]$logToSearch)
+    Param([string]$logToSearch) # This is unnessecary because of inheretence and can be replaced with
+    # $logToSearch = $readLog
+
+    
 
     # Format the user input
     # Example: @{Log=Security}
-    $theLog = "^@{Log=" + $logToSearch + "}$" # TODO: what does the dollar sign do here?
+    $theLog = "^@{Log=" + $logToSearch + "}$"
 
     # Search the array for the exact hashtable string
-    if ($arrLog -Match $theLog){ # TODO: why is $arrLog accessable from here?
+    if ($arrLog -match $theLog){ # $arrLog is accessable becuase of inheretince
 
         Write-Host -BackgroundColor Green -ForegroundColor White "Please wait, it may take a few moments to retrieve the log entries."
         Sleep 2
 
         # Call the function to view the log
-        view_log -logToSearch $logToSearch
+        view_log -logToSearch $logToSearch # These params are unnessecary because of inheretence
 
 
     } else {
