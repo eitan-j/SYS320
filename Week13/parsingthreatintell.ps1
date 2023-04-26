@@ -41,5 +41,13 @@ Out-File -FilePath 'ips-bad.tmp'
 # After the IP address, add the remaining IPTables syntax and save the results to a file
 # iptables -A INPUT -s 192.168.0.1 -j DROP
 (Get-Content -Path '.\ips-bad.tmp') | ForEach-Object `
-{ $_ -replace '^','iptables -A INPUT -s ' -replace '$',' -j DROP'} | `
+{ Write-Output "iptables -A INPUT -s $_ -j DROP" } | `
 Out-File -FilePath 'iptables.bash'
+
+
+
+# Do the same as above but with netsh
+# netsh advfirewall firewall add rule name="BLOCK IP ADDRESS - 192.168.0.1" dir=in action=block remoteip=192.168.0.1
+(Get-Content -Path '.\ips-bad.tmp') | ForEach-Object `
+{ Write-Output "netsh advfirewall firewall add rule name=`"BLOCK IP ADDRESS - $_`" dir=in action=block remoteip=$_" } | `
+Out-File -FilePath 'netshrules.bat'
