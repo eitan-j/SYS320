@@ -45,7 +45,6 @@ Out-File -FilePath 'ips-bad.tmp'
 Out-File -FilePath 'iptables.bash'
 
 
-
 # Do the same as above but with netsh
 # netsh advfirewall firewall add rule name="BLOCK IP ADDRESS - 192.168.0.1" dir=in action=block remoteip=192.168.0.1
 (Get-Content -Path '.\ips-bad.tmp') | ForEach-Object `
